@@ -1,0 +1,31 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
+#
+<% if @nfs -%>
+nfs <%= @nfs %>
+<% end -%>
+<% if @ssh -%>
+ssh <%= @ssh %>
+<% if @sshkey -%>
+sshkey <%= @sshkey %>
+<% end -%>
+<% end -%>
+<% if @path -%>
+path <%= @path %>
+<% end -%>
+<% if @core_collector -%>
+core_collector <%= @core_collector %>
+<% end -%>
+<% if @kdump_pre -%>
+kdump_pre <%= @kdump_pre %>
+<% end -%>
+<% if @kdump_post -%>
+kdump_post <%= @kdump_post %>
+<% end -%>
+<% if @extra_modules -%>
+extra_modules <%= @extra_modules %>
+<% end -%>
+<% if @default -%>
+default <%= @default %>
+<% end -%>

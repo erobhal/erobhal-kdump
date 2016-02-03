@@ -1,0 +1,29 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
+#
+#
+<% if @kdump_kernelver -%>
+KDUMP_KERNELVER="<%= @kdump_kernelver %>"
+<% end -%>
+<% if @kdump_commandline -%>
+KDUMP_COMMANDLINE="<%= @kdump_commandline %>"
+<% end -%>
+<% if @kdump_commandline_append -%>
+KDUMP_COMMANDLINE_APPEND="<%= @kdump_commandline_append %>"
+<% end -%>
+<% if @kexec_args -%>
+KEXEC_ARGS="<%= @kexec_args %>"
+<% end -%>
+<% if @kdump_bootdir -%>
+KDUMP_BOOTDIR="<%= @kdump_bootdir %>"
+<% end -%>
+<% if @kdump_img -%>
+KDUMP_IMG="<%= @kdump_img %>"
+<% end -%>
+<% if @kdump_img_ext -%>
+KDUMP_IMG_EXT="<%= @kdump_img_ext %>"
+<% end -%>
+<% if @mkdumprd_args -%>
+MKDUMPRD_ARGS="<%= @mkdumprd_args %>"
+<% end -%>
