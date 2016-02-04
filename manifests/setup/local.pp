@@ -11,9 +11,14 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::setup::local inherits kdump {
+class kdump::setup::local (
+  $path  = $kdump::path,
+)
+{
 
-  file { $kdump::path:
+  include kdump
+
+  file { $path:
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',

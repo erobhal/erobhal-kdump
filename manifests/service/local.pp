@@ -11,11 +11,16 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::service::local inherits kdump {
+class kdump::service::local (
+  $path = $kdump::path,
+)
+{
+  include kdump
+
   service { 'kdump':
     ensure  => running,
     enable  => true,
-    require => [ Package['kexec-tools'], File[$kdump::path], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'] ],
+    require => [ Package['kexec-tools'], File[$path], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'] ],
   }
 }
 

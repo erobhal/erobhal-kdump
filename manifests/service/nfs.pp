@@ -11,7 +11,7 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::service::nfs inherits kdump {
+class kdump::service::nfs {
   service { 'kdump':
     ensure  => running,
     enable  => true,

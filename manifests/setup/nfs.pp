@@ -11,44 +11,52 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::setup::nfs inherits kdump {
+class kdump::setup::nfs (
+  $path  = $kdump::path,
+  $nfs            = $kdump::nfs,
+  $nfs_mountpoint = $kdump::nfs_mountpoint,
+  $nfs_options    = $kdump::nfs_options,
+)
+{
 
-  file { $kdump::path:
+  include kdump
+
+  file { $path:
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
     mode   => '0750',
   }
 
-  file { $kdump::nfs_mountpoint:
+  file { $nfs_mountpoint:
     ensure => 'directory',
     notify => Exec['mount_nfs'],
   }
 
-  if $kdump::nfs_options != undef {
+  if $nfs_options != undef {
     exec { 'mount_nfs':
-      command => "mount -t nfs -o ${kdump::nfs_options} ${kdump::nfs} ${kdump::nfs_mountpoint}",
+      command => "mount -t nfs -o ${nfs_options} ${nfs} ${nfs_mountpoint}",
       path    => ['/usr/sbin','/usr/bin','/bin'],
-      onlyif  => "test -z \"`mount | grep 'on ${kdump::nfs_mountpoint} '`\"",
-      require => File[$kdump::nfs_mountpoint],
+      onlyif  => "test -z \"`mount | grep 'on ${nfs_mountpoint} '`\"",
+      require => File[$nfs_mountpoint],
       notify  => Exec['make_directory'],
     }
   }
   else {
     exec { 'mount_nfs':
-      command => "mount -t nfs ${kdump::nfs} ${kdump::nfs_mountpoint}",
+      command => "mount -t nfs ${nfs} ${nfs_mountpoint}",
       path    => ['/usr/sbin','/usr/bin','/bin'],
-      onlyif  => "test -z \"`mount | grep 'on ${kdump::nfs_mountpoint} '`\"",
-      require => File[$kdump::nfs_mountpoint],
+      onlyif  => "test -z \"`mount | grep 'on ${nfs_mountpoint} '`\"",
+      require => File[$nfs_mountpoint],
       notify  => Exec['make_directory'],
     }
   }
 
   exec { 'make_directory':
-    command => "umask 0007; mkdir -p ${kdump::nfs_mountpoint}/${kdump::path}",
+    command => "umask 0007; mkdir -p ${nfs_mountpoint}/${path}",
     path    => ['/usr/sbin','/usr/bin','/bin'],
-    onlyif  => [ "test -n \"`mount | grep 'on ${kdump::nfs_mountpoint} '`\"",
-                "test -z \"`ls -d ${kdump::nfs_mountpoint}/${kdump::path} 2>/dev/null`\"" ],
-    require => [ File[$kdump::nfs_mountpoint], Exec['mount_nfs']],
+    onlyif  => [ "test -n \"`mount | grep 'on ${nfs_mountpoint} '`\"",
+                "test -z \"`ls -d ${nfs_mountpoint}/${path} 2>/dev/null`\"" ],
+    require => [ File[$nfs_mountpoint], Exec['mount_nfs']],
   }
 }
