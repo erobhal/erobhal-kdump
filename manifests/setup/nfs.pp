@@ -13,6 +13,13 @@
 
 class kdump::setup::nfs inherits kdump {
 
+  file { $kdump::path:
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0750',
+  }
+
   file { $kdump::nfs_mountpoint:
     ensure => 'directory',
     notify => Exec['mount_nfs'],

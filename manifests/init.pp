@@ -48,11 +48,13 @@ class kdump (
     if $::memorysize_mb >= $memlimit_mb and $enabled == true {
 
       $kdump_ensure      = 'present'
-      $kdump_ensure_dir  = 'directory'
       $grub2_crashkernel = $crashkernel
 
       if $nfs != undef {
         include kdump::setup::nfs
+      }
+      else {
+        include kdump::setup::local
       }
 
       if $nfs != undef {
@@ -65,7 +67,6 @@ class kdump (
     } else {
 
       $kdump_ensure      = 'absent'
-      $kdump_ensure_dir  = 'absent'
       $grub2_crashkernel = undef
 
       service { 'kdump':
@@ -74,7 +75,6 @@ class kdump (
 
 
     }
-
 
     package { 'kexec-tools':
       ensure  => $kdump_ensure,
@@ -99,14 +99,6 @@ class kdump (
       require => Package['kexec-tools'],
       notify  => Service['kdump'],
     }
-
-    file { $kdump::path:
-      ensure => $kdump_ensure_dir,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0750',
-    }
-
 
   } else {
     notify {"This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}":}
