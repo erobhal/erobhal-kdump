@@ -47,59 +47,66 @@ class kdump (
     # Only configure kdump on systems with specified memory or more
     if $::memorysize_mb >= $memlimit_mb and $enabled == true {
 
-      $grub2_crashkernel= $crashkernel
+      $kdump_ensure      = 'present'
+      $kdump_ensure_dir  = 'directory'
+      $grub2_crashkernel = $crashkernel
 
       if $nfs != undef {
-        include kdump::install::dumpnfs
-      }
-      else {
-        include kdump::install::dumplocal
+        include kdump::setup::nfs
       }
 
       if $nfs != undef {
-        include kdump::service::dumpnfs
+        include kdump::service::nfs
       }
       else {
-        include kdump::service::dumplocal
-      }
-
-      file { '/etc/kdump.conf':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => template($config_template),
-        require => Package['kexec-tools'],
-        notify  => Service['kdump'],
-      }
-
-      file { '/etc/sysconfig/kdump':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => template($sysconfig_template),
-        require => Package['kexec-tools'],
-        notify  => Service['kdump'],
+        include kdump::service::local
       }
 
     } else {
 
+      $kdump_ensure      = 'absent'
+      $kdump_ensure_dir  = 'absent'
       $grub2_crashkernel = undef
 
-      package { 'kexec-tools':
-        ensure  => absent,
+      service { 'kdump':
+        ensure  => stopped,
       }
 
-      file { '/etc/kdump.conf':
-        ensure  => absent,
-      }
-
-      file { '/etc/sysconfig/kdump':
-        ensure  => absent,
-      }
 
     }
+
+
+    package { 'kexec-tools':
+      ensure  => $kdump_ensure,
+    }
+
+    file { '/etc/kdump.conf':
+      ensure  => $kdump_ensure,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template($config_template),
+      require => Package['kexec-tools'],
+      notify  => Service['kdump'],
+    }
+
+    file { '/etc/sysconfig/kdump':
+      ensure  => $kdump_ensure,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template($sysconfig_template),
+      require => Package['kexec-tools'],
+      notify  => Service['kdump'],
+    }
+
+    file { $kdump::path:
+      ensure => $kdump_ensure_dir,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0750',
+    }
+
 
   } else {
     notify {"This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}":}

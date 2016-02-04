@@ -1,4 +1,4 @@
-# == Class: kdump::service::dumpnfs
+# == Class: kdump::service::nfs
 #
 # See README for documentation
 #
@@ -11,7 +11,7 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::service::dumpnfs inherits kdump {
+class kdump::service::nfs inherits kdump {
   service { 'kdump':
     ensure  => running,
     enable  => true,

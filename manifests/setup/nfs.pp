@@ -1,4 +1,4 @@
-# == Class: kdump::install::dumpnfs
+# == Class: kdump::setup::nfs
 #
 # See README for documentation
 #
@@ -11,18 +11,7 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::install::dumpnfs inherits kdump {
-  package { 'kexec-tools':
-    ensure  => present,
-  }
-
-  # Local path is needed if default action dump_to_root_fs is set
-  file { $kdump::path:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0750',
-  }
+class kdump::setup::nfs inherits kdump {
 
   file { $kdump::nfs_mountpoint:
     ensure => 'directory',

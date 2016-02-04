@@ -1,4 +1,4 @@
-# == Class: kdump::service::dumplocal
+# == Class: kdump::service::local
 #
 # See README for documentation
 #
@@ -11,7 +11,7 @@
 # Copyright 2016 Ericsson AB, unless otherwise noted.
 #
 
-class kdump::service::dumplocal inherits kdump {
+class kdump::service::local inherits kdump {
   service { 'kdump':
     ensure  => running,
     enable  => true,
