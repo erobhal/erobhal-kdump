@@ -1,0 +1,6 @@
+fixtures:
+  repositories:
+    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
+    grub2: git://github.com/erobhal/erobhal-grub2.git
+  symlinks:
+    kdump: "#{source_dir}"
