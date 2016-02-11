@@ -40,5 +40,8 @@ class kdump::params {
       $kdump_img                = 'vmlinuz'
       $kdump_img_ext            = undef
     }
+    default: {
+      # Not on a supported OS
+    }
   }
 }
