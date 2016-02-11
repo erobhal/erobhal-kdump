@@ -65,7 +65,7 @@ KDUMP_IMG="vmlinuz"
       :core_collector => '*core_collector*',
       :crashkernel => '*crashkernel*',
       :ssh => '*ssh*',
-      :sshkey => '*sshkey*',
+      :sshkey => '/local/ssh',
       :kdump_pre => '*kdump_pre*',
       :kdump_post => '*kdump_post*',
       :extra_modules => '*extra_modules*',
@@ -75,7 +75,7 @@ KDUMP_IMG="vmlinuz"
       :kdump_commandline => '*kdump_commandline*',
       :kdump_commandline_append => '*kdump_commandline_append*',
       :kexec_args => '*kexec_args*',
-      :kdump_bootdir => '*kdump_bootdir*',
+      :kdump_bootdir => '/boot',
       :kdump_img => '*kdump_img*',
       :kdump_img_ext => '*kdump_img_ext*',
       :nfs => :undef,
@@ -104,7 +104,7 @@ KDUMP_IMG="vmlinuz"
 #
 #
 ssh *ssh*
-sshkey *sshkey*
+sshkey /local/ssh
 path /local/crash
 core_collector *core_collector*
 kdump_pre *kdump_pre*
@@ -132,7 +132,7 @@ KDUMP_KERNELVER="*kdump_kernelver*"
 KDUMP_COMMANDLINE="*kdump_commandline*"
 KDUMP_COMMANDLINE_APPEND="*kdump_commandline_append*"
 KEXEC_ARGS="*kexec_args*"
-KDUMP_BOOTDIR="*kdump_bootdir*"
+KDUMP_BOOTDIR="/boot"
 KDUMP_IMG="*kdump_img*"
 KDUMP_IMG_EXT="*kdump_img_ext*"
 MKDUMPRD_ARGS="*mkdumprd_args*"
@@ -219,11 +219,253 @@ default dump_to_root_fs
       })
     end
 
+    # Input validation
+    context 'sending wrong type to parameter :enabled' do
+    let(:params) { {
+      :enabled => 'yes',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :config_template' do
+    let(:params) { {
+      :config_template => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :sysconfig_template' do
+    let(:params) { {
+      :sysconfig_template => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :memlimit_mb' do
+    let(:params) { {
+      :memlimit_mb => 'thirty',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :path' do
+    let(:params) { {
+      :path => 'a/path',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :core_collector' do
+    let(:params) { {
+      :core_collector => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :crashkernel' do
+    let(:params) { {
+      :crashkernel => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :nfs' do
+    let(:params) { {
+      :nfs => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :nfs_mountpoint' do
+    let(:params) { {
+      :nfs_mountpoint => 'a/path',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :nfs_options' do
+    let(:params) { {
+      :nfs_options => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :ssh' do
+    let(:params) { {
+      :ssh => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :sshkey' do
+    let(:params) { {
+      :sshkey => 'a/path',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_pre' do
+    let(:params) { {
+      :kdump_pre => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_post' do
+    let(:params) { {
+      :kdump_post => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :extra_modules' do
+    let(:params) { {
+      :extra_modules => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :default' do
+    let(:params) { {
+      :default => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :mkdumprd_args' do
+    let(:params) { {
+      :mkdumprd_args => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_kernelver' do
+    let(:params) { {
+      :kdump_kernelver => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_commandline' do
+    let(:params) { {
+      :kdump_commandline => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_commandline_append' do
+    let(:params) { {
+      :kdump_commandline_append => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kexec_args' do
+    let(:params) { {
+      :kexec_args => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_bootdir' do
+    let(:params) { {
+      :kdump_bootdir => 'a/path',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_img' do
+    let(:params) { {
+      :kdump_img => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_img_ext' do
+    let(:params) { {
+      :kdump_img_ext => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+
     it { should compile.with_all_deps }
 
   end
 
-  describe 'on RedHat 7with memory < 2048 MB' do
+  describe 'on RedHat 7 with memory < 2048 MB' do
     let(:facts) { {
       :operatingsystem => 'RedHat',
       :operatingsystemmajrelease => '7',
@@ -256,6 +498,10 @@ default dump_to_root_fs
     let(:facts) { {
       :operatingsystem => 'WrongOS',
       :operatingsystemmajrelease => '0',
+    } }
+    let(:params) { {
+      :path => '/local/crash',
+      :crashkernel => 'auto',
     } }
     it { should contain_notify('This kdump module supports RedHat 7, you are running WrongOS 0')}
   end
