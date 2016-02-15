@@ -77,8 +77,6 @@ KDUMP_IMG="vmlinuz"
       :path => '/local/crash',
       :core_collector => '*core_collector*',
       :crashkernel => '*crashkernel*',
-      :ssh => '*ssh*',
-      :sshkey => '/local/ssh',
       :kdump_pre => '*kdump_pre*',
       :kdump_post => '*kdump_post*',
       :extra_modules => '*extra_modules*',
@@ -116,8 +114,6 @@ KDUMP_IMG="vmlinuz"
 # DO NOT EDIT
 #
 #
-ssh *ssh*
-sshkey /local/ssh
 path /local/crash
 core_collector *core_collector*
 kdump_pre *kdump_pre*
@@ -177,8 +173,6 @@ MKDUMPRD_ARGS="*mkdumprd_args*"
       :nfs_options => 'ro',
       :core_collector => :undef,
       :crashkernel => :undef,
-      :ssh => :undef,
-      :sshkey => :undef,
       :kdump_pre => :undef,
       :kdump_post => :undef,
       :extra_modules => :undef,
@@ -387,26 +381,6 @@ default dump_to_root_fs
     context 'sending wrong type to parameter :nfs_options' do
     let(:params) { {
       :nfs_options => false,
-    } }
-      it 'should fail' do
-        expect {
-          should contain_class('kdump')
-        }.to raise_error(Puppet::Error,/wrong input type/)
-      end
-    end
-    context 'sending wrong type to parameter :ssh' do
-    let(:params) { {
-      :ssh => false,
-    } }
-      it 'should fail' do
-        expect {
-          should contain_class('kdump')
-        }.to raise_error(Puppet::Error,/wrong input type/)
-      end
-    end
-    context 'sending wrong type to parameter :sshkey' do
-    let(:params) { {
-      :sshkey => 'a/path',
     } }
       it 'should fail' do
         expect {

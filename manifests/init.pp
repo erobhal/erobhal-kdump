@@ -26,8 +26,6 @@ class kdump (
   $nfs                          = $kdump::params::nfs,
   $nfs_mountpoint               = $kdump::params::nfs_mountpoint,
   $nfs_options                  = $kdump::params::nfs_options,
-  $ssh                          = $kdump::params::ssh,
-  $sshkey                       = $kdump::params::sshkey,
   $kdump_pre                    = $kdump::params::kdump_pre,
   $kdump_post                   = $kdump::params::kdump_post,
   $extra_modules                = $kdump::params::extra_modules,
@@ -104,12 +102,6 @@ class kdump (
       unless $nfs_options == undef or is_string($nfs_options) {
         fail('Parameter nfs_options has wrong input type. Should be string.')
       }
-      unless $ssh == undef or is_string($ssh) {
-        fail('Parameter ssh has wrong input type. Should be string.')
-      }
-      unless $sshkey == undef or is_absolute_path($sshkey) {
-        fail('Parameter sshkey has wrong input type. Should be string.')
-      }
       unless $kdump_pre == undef or is_string($kdump_pre) {
         fail('Parameter kdump_pre has wrong input type. Should be string.')
       }
@@ -150,9 +142,6 @@ class kdump (
       # Validate dependencies
       if $nfs != undef and $nfs_mountpoint == undef {
         fail('Parameter nfs_moutpoint is required when nfs is set.')
-      }
-      if $ssh != undef and $sshkey == undef {
-        fail('sshkey is required when ssh is set')
       }
       
     }

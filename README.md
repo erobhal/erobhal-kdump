@@ -58,14 +58,6 @@ of the crashkernel boot parameter.
  - Options to be used when mounting the NFS share.
  - **STRING** : *undef*
 
-#### ssh
- - Copy the core dump to a remote directory via SSH.
- - **STRING** : *undef*
-
-#### sshkey
- - SSH key to use when connecting to remote SSHD.
- - **STRING** : *'/root/.ssh/kdump_id_rsa'*
-
 #### kdump_pre
  -  Run a specified executable just before the memory dump process initiates.
  - **STRING** : *undef*

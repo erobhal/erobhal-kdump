@@ -29,8 +29,6 @@ class kdump::params {
       $nfs                      = undef
       $nfs_mountpoint           = undef
       $nfs_options              = undef
-      $ssh                      = undef
-      $sshkey                   = '/root/.ssh/kdump_id_rsa'
       $kdump_pre                = undef
       $kdump_post               = undef
       $extra_modules            = undef
