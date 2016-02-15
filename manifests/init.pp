@@ -125,8 +125,6 @@ class kdump (
     fail('Parameter kdump_img_ext has wrong input type. Should be string.')
   }
     
-
-
   # This class needs the grub2 class to handle grub crashkernel parameter
   require grub2
 
@@ -136,17 +134,11 @@ class kdump (
     # Only configure kdump on systems with specified memory or more
     if $::memorysize_mb >= $memlimit_mb and $_enabled == true {
 
-      $kdump_ensure      = 'present'
-      $grub2_crashkernel = $crashkernel
+      $kdump_ensure         = 'present'
+      $grub2_crashkernel    = $crashkernel
 
       include kdump::setup
-
-      if $nfs != undef {
-        include kdump::service::nfs
-      }
-      else {
-        include kdump::service::local
-      }
+      include kdump::service
 
     } else {
 

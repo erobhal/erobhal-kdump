@@ -12,14 +12,15 @@
 #
 
 class kdump::service (
-  $path = $kdump::path,
+  $path         = $kdump::path,
+  $nfs          = $kdump::nfs,
 )
 {
   if $nfs != undef {
     service { 'kdump':
       ensure  => running,
       enable  => true,
-      require => [ Package['kexec-tools'], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'], Exec['mount_nfs'] ],
+      require => [ Package['kexec-tools'], File[$path], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'], Exec['mount_nfs'] ],
     }
   }
   else {

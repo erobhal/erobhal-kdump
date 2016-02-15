@@ -57,6 +57,19 @@ KDUMP_IMG="vmlinuz"
         })
       end
 
+      it do
+        should contain_service('kdump').with({
+          'ensure' => 'running',
+          'enable' => 'true',
+          'require' => [
+            'Package[kexec-tools]',
+            'File[/var/crash]',
+            'File[/etc/kdump.conf]',
+            'File[/etc/sysconfig/kdump]',
+           ]
+        })
+      end
+
     end
 
     context 'modified params on RedHat 7' do
@@ -141,6 +154,19 @@ MKDUMPRD_ARGS="*mkdumprd_args*"
 
       end
 
+      it do
+        should contain_service('kdump').with({
+          'ensure' => 'running',
+          'enable' => 'true',
+          'require' => [
+            'Package[kexec-tools]',
+            'File[/local/crash]',
+            'File[/etc/kdump.conf]',
+            'File[/etc/sysconfig/kdump]',
+           ]
+        })
+      end
+
     end
 
     context 'nfs mount on RedHat 7' do
@@ -204,6 +230,20 @@ default dump_to_root_fs
         })
       end
 
+      it do
+        should contain_service('kdump').with({
+          'ensure' => 'running',
+          'enable' => 'true',
+          'require' => [
+            'Package[kexec-tools]',
+            'File[/crash]',
+            'File[/etc/kdump.conf]',
+            'File[/etc/sysconfig/kdump]',
+            'Exec[mount_nfs]',
+           ]
+        })
+      end
+
     end
 
     it do
@@ -212,12 +252,6 @@ default dump_to_root_fs
       })
     end
 
-    it do
-      should contain_service('kdump').with({
-        'ensure' => 'running',
-        'enable' => 'true',
-      })
-    end
 
     # Input validation
     context 'sending wrong type to parameter :enabled' do
