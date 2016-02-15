@@ -146,7 +146,7 @@ class kdump (
       $grub2_crashkernel = undef
 
       service { 'kdump':
-        ensure  => stopped,
+        ensure => stopped,
         enable => false,
       }
 
