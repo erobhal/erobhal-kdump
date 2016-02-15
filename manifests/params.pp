@@ -13,12 +13,16 @@
 
 class kdump::params {
   $enabled              = true
-  $config_template      = 'kdump/kdump.erb'
-  $sysconfig_template   = 'kdump/sysconfig_kdump.erb'
   $memlimit_mb          = '2048'
 
   case $::operatingsystem {
     'RedHat': {
+      $kdump_config_file        = '/etc/kdump.conf'
+      $kdump_sysconfig_file     = '/etc/sysconfig/kdump'
+      $kdump_package            = 'kexec-tools'
+      $kdump_service            = 'kdump'
+      $config_template          = 'kdump/kdump.erb'
+      $sysconfig_template       = 'kdump/sysconfig_kdump.erb'
       $path                     = '/var/crash'
       $core_collector           = 'makedumpfile -d 17 -c'
       $crashkernel              = 'auto'

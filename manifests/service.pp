@@ -12,22 +12,28 @@
 #
 
 class kdump::service (
-  $path         = $kdump::path,
-  $nfs          = $kdump::nfs,
+  $kdump_config_file    = $kdump::kdump_config_file,
+  $kdump_sysconfig_file = $kdump::kdump_sysconfig_file,
+  $kdump_package        = $kdump::kdump_package,
+  $kdump_service        = $kdump::kdump_service,
+  $kdump_service_ensure = $kdump::kdump_service_ensure,
+  $kdump_service_enable = $kdump::kdump_service_enable,
+  $path                 = $kdump::path,
+  $nfs                  = $kdump::nfs,
 )
 {
-  if $nfs != undef {
-    service { 'kdump':
-      ensure  => running,
-      enable  => true,
-      require => [ Package['kexec-tools'], File[$path], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'], Exec['mount_nfs'] ],
+  if $kdump_service_enable {
+    if $nfs != undef {
+      $kdump_service_require = [ Package[$kdump_package], File[$path], File[$kdump_config_file], File[$kdump_sysconfig_file], Exec['mount_nfs'] ]
+    }
+    else {
+      $kdump_service_require = [ Package[$kdump_package], File[$path], File[$kdump_config_file], File[$kdump_sysconfig_file] ]
     }
   }
-  else {
-    service { 'kdump':
-      ensure  => running,
-      enable  => true,
-      require => [ Package['kexec-tools'], File[$path], File['/etc/kdump.conf'], File['/etc/sysconfig/kdump'] ],
-    }
+
+  service { $kdump_service:
+    ensure  => $kdump_service_ensure,
+    enable  => $kdump_service_enable,
+    require => $kdump_service_require,
   }
 }

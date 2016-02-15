@@ -9,7 +9,7 @@ describe 'kdump' do
       :memorysize_mb => '2048',
     } }
 
-    context 'default params on RedHat 7' do
+    context 'using default params' do
       it do
         should contain_file('/etc/kdump.conf').with({
           'ensure' => 'present',
@@ -72,7 +72,7 @@ KDUMP_IMG="vmlinuz"
 
     end
 
-    context 'modified params on RedHat 7' do
+    context 'using modified params' do
     let(:params) { {
       :path => '/local/crash',
       :core_collector => '*core_collector*',
@@ -169,7 +169,7 @@ MKDUMPRD_ARGS="*mkdumprd_args*"
 
     end
 
-    context 'nfs mount on RedHat 7' do
+    context 'using nfs mount' do
     let(:params) { {
       :path => '/crash',
       :nfs => 'example.com:/share',
@@ -257,6 +257,46 @@ default dump_to_root_fs
     context 'sending wrong type to parameter :enabled' do
     let(:params) { {
       :enabled => 'yes',
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_config_file' do
+    let(:params) { {
+      :kdump_config_file => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_sysconfig_file' do
+    let(:params) { {
+      :kdump_sysconfig_file => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_package' do
+    let(:params) { {
+      :kdump_package => false,
+    } }
+      it 'should fail' do
+        expect {
+          should contain_class('kdump')
+        }.to raise_error(Puppet::Error,/wrong input type/)
+      end
+    end
+    context 'sending wrong type to parameter :kdump_service' do
+    let(:params) { {
+      :kdump_service => false,
     } }
       it 'should fail' do
         expect {
@@ -539,10 +579,6 @@ default dump_to_root_fs
     let(:facts) { {
       :operatingsystem => 'WrongOS',
       :operatingsystemmajrelease => '0',
-    } }
-    let(:params) { {
-      :path => '/local/crash',
-      :crashkernel => 'auto',
     } }
     it { should contain_notify('This kdump module supports RedHat 7, you are running WrongOS 0')}
   end
