@@ -519,6 +519,13 @@ default dump_to_root_fs
     end
 
     it do
+      should contain_service('kdump').with({
+        'ensure' => 'stopped',
+        'enable' => 'false',
+      })
+    end
+
+    it do
       should contain_package('kexec-tools').with({
         'ensure' => 'absent',
       })

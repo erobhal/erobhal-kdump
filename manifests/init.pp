@@ -147,6 +147,7 @@ class kdump (
 
       service { 'kdump':
         ensure  => stopped,
+        enable => false,
       }
 
 
