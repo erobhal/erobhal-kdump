@@ -39,10 +39,8 @@ class kdump (
 ) inherits kdump::params {
 
   # Parameter sanitation
-  if is_string($enabled) {
-    if $enabled =~ /(?i:true|false)/ {
+  if $enabled != undef and is_string($enabled) and $enabled =~ /(?i:true|false)/ {
       $_enabled = str2bool($enabled)
-    }
   }
   else {
     $_enabled = $enabled
@@ -141,12 +139,7 @@ class kdump (
       $kdump_ensure      = 'present'
       $grub2_crashkernel = $crashkernel
 
-      if $nfs != undef {
-        include kdump::setup::nfs
-      }
-      else {
-        include kdump::setup::local
-      }
+      include kdump::setup
 
       if $nfs != undef {
         include kdump::service::nfs
