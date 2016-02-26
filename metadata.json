@@ -3,7 +3,7 @@
   "version": "0.1.5",
   "author": "Robert Hallgren",
   "summary": "Handle kdump on Linux",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git@github.com:/erobhal/erobhal-kdump.git",
   "project_page": "https://github.com/erobhal/erobhal-kdump",
   "issues_url": "https://github.com/erobhal/erobhal-kdump/issues",
