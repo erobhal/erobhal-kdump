@@ -42,7 +42,6 @@ class kdump (
 
   # This class needs the grub2 class to handle grub crashkernel parameter
   require grub2
- 
 
   case $::operatingsystem {
     'RedHat': { # List supported OS here for sanitation/validation to run
