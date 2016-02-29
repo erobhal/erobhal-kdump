@@ -1,6 +1,6 @@
 {
   "name": "erobhal-kdump",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "author": "Robert Hallgren",
   "summary": "Handle kdump on Linux",
   "license": "Apache-2.0",
@@ -14,7 +14,7 @@
     },
     {
       "name": "erobhal-grub2",
-      "version_range": ">=0.0.1"
+      "version_range": ">=0.2.0"
     }
   ],
   "operatingsystem_support": [
