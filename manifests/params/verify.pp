@@ -38,7 +38,7 @@ class kdump::params::verify (
   $kdump_bootdir                = $kdump::kdump_bootdir,
   $kdump_img                    = $kdump::kdump_img,
   $kdump_img_ext                = $kdump::kdump_img_ext,
-) {
+) inherits kdump {
 
   # Mandatory parameters
   unless $enabled != undef and is_bool($enabled) {

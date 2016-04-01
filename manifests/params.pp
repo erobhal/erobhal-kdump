@@ -53,6 +53,21 @@ class kdump::params {
       $path                     = '/var/crash'
       $core_collector           = 'makedumpfile -d 17 -c'
       $crashkernel              = 'auto'
+      $nfs                      = undef
+      $nfs_mountpoint           = undef
+      $nfs_options              = undef
+      $kdump_pre                = undef
+      $kdump_post               = undef
+      $extra_modules            = undef
+      $default                  = undef
+      $mkdumprd_args            = undef
+      $kdump_kernelver          = undef
+      $kdump_commandline        = undef
+      $kdump_commandline_append = undef
+      $kexec_args               = undef
+      $kdump_bootdir            = undef
+      $kdump_img                = undef
+      $kdump_img_ext            = undef
     }
   }
 }
