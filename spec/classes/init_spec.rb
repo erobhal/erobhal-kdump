@@ -291,7 +291,11 @@ default dump_to_root_fs
       :operatingsystem => 'WrongOS',
       :operatingsystemmajrelease => '0',
     } }
-    it { should contain_notify('This kdump module supports RedHat 7, you are running WrongOS 0')}
+    it 'should fail' do
+      expect {
+        should contain_class('kdump')
+      }.to raise_error(Puppet::Error,/module supports RedHat 7, you are running WrongOS 0/)
+    end
   end
 
 end

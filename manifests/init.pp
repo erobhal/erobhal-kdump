@@ -112,7 +112,7 @@ class kdump (
     }
 
   } else {
-    notify {"This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}":}
+    fail ("This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}")
   }
 
 }
