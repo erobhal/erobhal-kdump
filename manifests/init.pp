@@ -112,6 +112,7 @@ class kdump (
     }
 
   } else {
+    $grub2_crashkernel    = undef
     fail ("This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}")
   }
 
