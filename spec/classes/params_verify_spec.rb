@@ -92,7 +92,7 @@ describe 'kdump' do
     end
     context 'sending wrong type to parameter :path' do
     let(:params) { {
-      :path => 'a/path',
+      :path => false,
     } }
       it 'should fail' do
         expect {
@@ -132,7 +132,7 @@ describe 'kdump' do
     end
     context 'sending wrong type to parameter :nfs_mountpoint' do
     let(:params) { {
-      :nfs_mountpoint => 'a/path',
+      :nfs_mountpoint => false,
     } }
       it 'should fail' do
         expect {
@@ -242,7 +242,7 @@ describe 'kdump' do
     end
     context 'sending wrong type to parameter :kdump_bootdir' do
     let(:params) { {
-      :kdump_bootdir => 'a/path',
+      :kdump_bootdir => false,
     } }
       it 'should fail' do
         expect {

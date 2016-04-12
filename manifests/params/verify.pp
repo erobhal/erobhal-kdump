@@ -65,7 +65,7 @@ class kdump::params::verify (
   unless $memlimit_mb != undef and is_numeric($memlimit_mb) {
     fail('Parameter memlimit_mb has wrong input type. It is mandatory and should be numeric.')
   }
-  unless $path != undef and is_absolute_path($path) {
+  unless $path != undef and is_string($path) {
     fail('Parameter path has wrong input type. It is mandatory and should be absolute path.')
   }
   unless $crashkernel != undef and is_string($crashkernel) {
@@ -79,7 +79,7 @@ class kdump::params::verify (
   unless $nfs == undef or is_string($nfs) {
     fail('Parameter nfs has wrong input type. Should be string.')
   }
-  unless $nfs_mountpoint == undef or is_absolute_path($nfs_mountpoint) {
+  unless $nfs_mountpoint == undef or is_string($nfs_mountpoint) {
     fail('Parameter nfs_mountpoint has wrong input type. Should be absolute path.')
   }
   unless $nfs_options == undef or is_string($nfs_options) {
@@ -112,7 +112,7 @@ class kdump::params::verify (
   unless $kexec_args == undef or is_string($kexec_args) {
     fail('Parameter kexec_args has wrong input type. Should be string.')
   }
-  unless $kdump_bootdir == undef or is_absolute_path($kdump_bootdir) {
+  unless $kdump_bootdir == undef or is_string($kdump_bootdir) {
     fail('Parameter kdump_bootdir has wrong input type. Should be absolute path.')
   }
   unless $kdump_img == undef or is_string($kdump_img) {
