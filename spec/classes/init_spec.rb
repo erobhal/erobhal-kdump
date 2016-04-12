@@ -23,7 +23,6 @@ describe 'kdump' do
 #
 path /var/crash
 core_collector makedumpfile -d 17 -c
-default dump_to_root_fs
 }
        ).that_notifies('Service[kdump]')
 
@@ -193,7 +192,6 @@ MKDUMPRD_ARGS="*mkdumprd_args*"
 nfs example.com:/share
 path /crash
 core_collector makedumpfile -d 17 -c
-default dump_to_root_fs
 }
        ).that_notifies('Service[kdump]')
 

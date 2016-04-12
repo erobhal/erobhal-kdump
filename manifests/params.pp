@@ -32,7 +32,7 @@ class kdump::params {
       $kdump_pre                = undef
       $kdump_post               = undef
       $extra_modules            = undef
-      $default                  = 'dump_to_root_fs'
+      $default                  = undef
       $mkdumprd_args            = undef
       $kdump_kernelver          = undef
       $kdump_commandline        = undef
