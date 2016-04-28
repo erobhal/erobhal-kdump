@@ -16,7 +16,7 @@ class kdump::params {
   $memlimit_mb          = '2048'
 
   case $::operatingsystem {
-    'RedHat': {
+    'RedHat','CentOS': {
       $kdump_config_file        = '/etc/kdump.conf'
       $kdump_sysconfig_file     = '/etc/sysconfig/kdump'
       $kdump_package            = 'kexec-tools'

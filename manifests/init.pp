@@ -44,7 +44,7 @@ class kdump (
   require grub2
 
   case $::operatingsystem {
-    'RedHat': { # List supported OS here for sanitation/validation to run
+    'RedHat','CentOS': { # List supported OS here for sanitation/validation to run
 
       # Parameter sanitation
       if $enabled != undef and is_string($enabled) and $enabled =~ /(?i:true|false)/ {
@@ -64,7 +64,7 @@ class kdump (
   }
 
   # RHEL 7
-  if $::operatingsystem == 'RedHat' and $::operatingsystemmajrelease == '7' {
+  if (($::operatingsystem == 'RedHat' or $::operatingsystem == 'CentOS') and $::operatingsystemmajrelease == '7') {
 
     # Only configure kdump on systems with specified memory or more
     if $::memorysize_mb >= $memlimit_mb and $_enabled == true {
@@ -112,7 +112,7 @@ class kdump (
     }
 
   } else {
-    fail ("This kdump module supports RedHat 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}")
+    fail ("This kdump module supports RedHat 7 and CentOS 7, you are running ${::operatingsystem} ${::operatingsystemmajrelease}")
   }
 
 }
