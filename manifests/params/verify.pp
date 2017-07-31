@@ -38,6 +38,7 @@ class kdump::params::verify (
   $kdump_bootdir                = $kdump::kdump_bootdir,
   $kdump_img                    = $kdump::kdump_img,
   $kdump_img_ext                = $kdump::kdump_img_ext,
+  $all_dracut_args              = $kdump::all_dracut_args,
 ) inherits kdump {
 
   # Mandatory parameters
@@ -126,6 +127,8 @@ class kdump::params::verify (
   if $nfs != undef and $nfs_mountpoint == undef {
     fail('Parameter nfs_moutpoint is required when nfs is set.')
   }
-      
+
+  kdump::params::checkdracutargs { $all_dracut_args: }
+
 }
 

@@ -14,6 +14,7 @@
 class kdump::params {
   $enabled              = true
   $memlimit_mb          = '2048'
+  $all_dracut_args      = hiera_array('kdump::dracut_args',[])
 
   case $::operatingsystem {
     'RedHat','CentOS': {

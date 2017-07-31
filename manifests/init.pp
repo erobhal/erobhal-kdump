@@ -26,6 +26,7 @@ class kdump (
   $nfs                          = $kdump::params::nfs,
   $nfs_mountpoint               = $kdump::params::nfs_mountpoint,
   $nfs_options                  = $kdump::params::nfs_options,
+  $all_dracut_args              = $kdump::params::all_dracut_args,
   $kdump_pre                    = $kdump::params::kdump_pre,
   $kdump_post                   = $kdump::params::kdump_post,
   $extra_modules                = $kdump::params::extra_modules,

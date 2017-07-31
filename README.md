@@ -58,6 +58,12 @@ of the crashkernel boot parameter.
  - Options to be used when mounting the NFS share.
  - **STRING** : *undef*
 
+#### dracut_args
+ - Arguments to send to dracut when creating crashkernel bootimage.
+   NOTE: When using dracut_args to set up NFS the module doesn't verify that the NFS
+   export or the mount point exists. This has to be done outside of this module.
+ - **ARRAY** : *undef*
+
 #### kdump_pre
  -  Run a specified executable just before the memory dump process initiates.
  - **STRING** : *undef*
@@ -142,5 +148,12 @@ kdump::path: /dump/here
 kdump::nfs: mynfsserver.mydoimain.com:/export
 kdump::nfs_mountpoint: /mnt/crash
 kdump::nfs_options: rw
+```
+
+The option dracut_args is a hiera_array where setting can be added at multiple levels in your Hiera files:
+
+Example of using dracut_args to configure NFS:
+```yaml
+kdump::dracut_args: --mount "mynfsserver.mydoimain.com:/export /mnt/crash nfs defaults"
 ```
 

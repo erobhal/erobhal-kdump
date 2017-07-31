@@ -284,6 +284,19 @@ describe 'kdump' do
           }.to raise_error(Puppet::Error,/wrong input type/)
         end
       end
+      context 'setting nfs parameter when dracut argument --mount is used' do
+      let(:params) { {
+        :all_dracut_args => ['--mount foobar'],
+        :nfs => 'foobar',
+        :nfs_mountpoint => '/mnt/crash',
+        :nfs_options => 'rw',
+      } }
+        it 'should fail' do
+          expect {
+            should contain_class('kdump')
+          }.to raise_error(Puppet::Error,/Parameter nfs should not be set when dracut argument --mount is used./)
+        end
+      end
     end
   end
 end

@@ -8,6 +8,10 @@ nfs <%= @nfs %>
 <% if @path -%>
 path <%= @path %>
 <% end -%>
+<% if @all_dracut_args != [] -%>
+dracut_args<% @all_dracut_args.sort.each do |item| -%> <%= item %><% end -%>
+
+<% end -%>
 <% if @core_collector -%>
 core_collector <%= @core_collector %>
 <% end -%>

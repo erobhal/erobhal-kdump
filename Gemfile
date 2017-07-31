@@ -6,14 +6,30 @@ else
   gem 'puppet', :require => false
 end
 
-gem 'metadata-json-lint'
-gem 'puppetlabs_spec_helper', '>= 0.1.0'
-gem 'puppet-lint', '>= 1.0.0'
-gem 'facter', '>= 1.7.0'
+gem 'puppetlabs_spec_helper'
+gem 'puppet-lint'
+gem 'facter'
 gem 'rspec-puppet'
-gem 'rubocop' if RUBY_VERSION >= '1.9.3'
+gem 'semantic_puppet' if RUBY_VERSION < '4.0.0'
 
-# rspec must be v2 for ruby 1.8.7
-gem 'rspec', '~> 2.0' if RUBY_VERSION >= '1.8.7' && RUBY_VERSION < '1.9'
-gem 'rake', '~> 0.9.6' if RUBY_VERSION >= '1.8.7' && RUBY_VERSION < '1.9'
+if RUBY_VERSION < '1.9'
+  gem 'rspec', '~> 2.0'
+  gem 'rake', '~> 0.9.6'
+else
+  gem 'rspec'
+  gem 'rake'
+end
 
+if RUBY_VERSION < '2.0.0' && RUBY_VERSION >= '1.9.3'
+  gem 'rubocop', '~> 0.41.2'
+  gem 'metadata-json-lint', '~> 1.1.0'
+else
+  gem 'rubocop'
+  gem 'metadata-json-lint'
+end
+
+if RUBY_VERSION < '2.1'
+  gem 'public_suffix', '~> 1.0.0'
+else
+  gem 'public_suffix'
+end
