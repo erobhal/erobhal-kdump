@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/erobhal/puppet-module-kdump.svg?branch=master)](https://travis-ci.org/erobhal/puppet-module-kdump)
+[![Build Status](https://travis-ci.org/erobhal/erobhal-kdump.svg?branch=master)](https://travis-ci.org/erobhal/erobhal-kdump)
 
 # erobhal-kdump
 
